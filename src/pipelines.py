@@ -1,4 +1,4 @@
-from weather_data_retriever.utils import get_location_from_name, get_nasa_weather_data
+from src.utils import get_location_from_name, get_nasa_weather_data
 from typing import Tuple, List, Dict, Union, Literal
 
 default_variables_to_fetch = [
