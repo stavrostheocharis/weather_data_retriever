@@ -1,1 +1,1 @@
-from src.pipelines import fetch_historical_weather_data
+from weather_data_retriever.pipelines import fetch_historical_weather_data
