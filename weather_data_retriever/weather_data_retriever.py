@@ -2,6 +2,11 @@ class weather_data_retriever:
     def __init__(self):
 
         from src.utils import get_location_from_name, get_nasa_weather_data
+        import pandas as pd
+        from geopy.geocoders import Nominatim
+        import requests
+        from datetime import datetime
+        import json
         from typing import Tuple, List, Dict, Union, Literal
 
         self.default_variables_to_fetch = [
