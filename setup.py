@@ -11,5 +11,10 @@ setup(
     long_description="Nasa weather data retriever",
     url="https://github.com/stavrostheocharis/weather_data_retriever.git",
     packages=find_packages(exclude="tests"),
+    install_requires=[
+        "pandas",
+        "geopy",
+        "requests",
+    ],
     license=license,
 )
