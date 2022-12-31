@@ -1,1 +1,0 @@
-from weather_data_retriever.weather_data_retriever import weather_data_retriever
