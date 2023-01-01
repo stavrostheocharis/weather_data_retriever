@@ -54,7 +54,7 @@ This package is based on [Nasa's weather open API and 'POWER' tools and applicat
 - *Monthly*:	Provides parameters by year; the annual and each month's average, maximum, and/or minimum values.
 - *Daily*:	Provides parameters by day with average, maximum, and/or minimum values.
 - *Hourly*:	Provides parameters by hour with average values.
-
+ 
 [**Communities**](https://power.larc.nasa.gov/docs/methodology/communities/)
 - *AG*: The Agroclimatology (AG) solar and meteorological parameters are available as daily mean time series formats. All parameters are provided on the original resolution grid, which is dependent on the parameter. The daily time series include the basic solar and meteorology parameters to support agricultural decision support tools such as the Decision Support System for Agro-technology Transfer. The hourly time series is a smaller subset of the solar and meteorology parameters.
 - *RE*: The Renewable Energy (RE) solar and meteorological parameters are available as climatologically and inter-annual (monthly and annual) averaged values, as well as in a daily time series format for user selected grids. All RE parameters are provided on the original resolution grid, which is dependent on the parameter. The climatologically averaged parameters are calculated to support applications such as solar cooking, sizing solar panels, and sizing battery backup systems. The monthly and annually averaged parameters are provided as monthly and annual averaged values by year for each of the base solar and meteorological data parameters. The daily and hourly time series include the basic solar and meteorology parameters as well as additional calculated parameters such as diffuse and direct normal radiation.
@@ -76,6 +76,11 @@ The different variables that can be fetched are:
 - **"PRECTOTCORR"**: Precipitation Corrected (mm/day)
 - **"WS2M"**: Wind Speed at 2 Meters (m/s)
 - **"ALLSKY_SFC_SW_DWN"**: All Sky Surface Shortwave Downward Irradiance (kW-hr/m^2/day)
+
+Each aggregation level permits a specific set of variables to be used:
+The "T2M", "T2MDEW", "T2MWET", "TS", "RH2M", "PRECTOT", "WS2M", and "ALLSKY SFC SW DWN" variables are the lowest-level variables that can be used in any of the aggregation levels. Additional "T2M RANGE," "T2M MAX," and "T2M MIN" can be utilized at all aggregation levels outside the hourly level.
+
+Please follow the [quick start notebook](quick_start.ipynb) in order to understand how to easily get started.
 ## How to contribute?
 
 We welcome any suggestions, problem reports, and contributions!
