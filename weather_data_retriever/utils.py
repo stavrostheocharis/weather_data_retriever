@@ -198,6 +198,8 @@ def get_nasa_weather_data(
     except Exception as e:
         print("There is an error with the Nasa weather API. The error is: ", e)
     content = json.loads(response.content.decode("utf-8"))
+    if len(content["messages"]) > 0:
+        raise InterruptedError(content["messages"])
 
     if regional:
         return content
