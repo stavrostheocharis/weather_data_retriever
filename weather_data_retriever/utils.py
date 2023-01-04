@@ -24,7 +24,7 @@ def get_location_from_name(
         raise ValueError("Error in finding Area & Coordinates.", e)
 
 
-def format_date_for_nasa(
+def format_date_for_larc_power(
     start_date: str,
     end_date: str,
     aggregation: Literal["hourly", "daily", "monthly", "climatology"],
@@ -51,7 +51,7 @@ def convert_str_hour_date_to_datetime(str_hour_date: str) -> datetime:
     return datetime.strptime(str_hour_date, "%Y%m%d%H")
 
 
-def convert_response_dict_to_dataframe(
+def convert_response_larc_power_dict_to_dataframe(
     response_dict: Dict[str, Dict[str, float]], aggregation: str
 ) -> pd.DataFrame:
     """
@@ -86,7 +86,7 @@ def adjust_coordinates_on_limitations(
     return str(longitude_max)
 
 
-def get_nasa_weather_data(
+def get_larc_power_weather_data(
     start_date: str,
     end_date: str,
     coordinates: Union[Tuple[float, float], Tuple[float, float, float, float]],
@@ -108,7 +108,7 @@ def get_nasa_weather_data(
     ],
 ) -> Union[pd.DataFrame, Dict[str, Dict[str, float]]]:
     """
-    This function retrieves NASA's historical weather data at a point
+    This function retrieves NASA's historical weather data at a location point
     Args:
         start_date: Starting date to retrieve data (eg. "2021-05-04)
         end_date: Ending date to retrieve data (eg. "2021-06-07)
@@ -156,7 +156,7 @@ def get_nasa_weather_data(
 
     # Basic modifications
     formatted_variables = ",".join(variables)
-    mod_start_date, mod_end_date = format_date_for_nasa(
+    mod_start_date, mod_end_date = format_date_for_larc_power(
         start_date, end_date, aggregation
     )
 
@@ -205,7 +205,163 @@ def get_nasa_weather_data(
         return content
     else:
         selected_content_dict = content["properties"]["parameter"]
-        weather_df = convert_response_dict_to_dataframe(
+        weather_df = convert_response_larc_power_dict_to_dataframe(
             selected_content_dict, aggregation
         )
         return weather_df
+
+
+def build_meteo_request_url(
+    aggregation: Literal["hourly", "daily"],
+    parameters_str: str,
+    longitude: float,
+    latitude: float,
+    case: Literal["forecast", "historical"],
+    start_date: Union[str, None],
+    end_date: Union[str, None],
+) -> str:
+
+    if case == "historical":
+        base_forecast_url = r"https://archive-api.open-meteo.com/v1/archive?latitude={latitude}&longitude={longitude}&start_date={start_date}&end_date={end_date}&{aggregation}={parameters_str}&timeformat=unixtime&timezone=auto"
+        api_forecast_request_url = base_forecast_url.format(
+            aggregation=aggregation,
+            parameters_str=parameters_str,
+            longitude=longitude,
+            latitude=latitude,
+            start_date=start_date,
+            end_date=end_date,
+        )
+    else:
+        base_forecast_url = r"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&{aggregation}={parameters_str}&timeformat=unixtime&timezone=auto"
+        api_forecast_request_url = base_forecast_url.format(
+            aggregation=aggregation,
+            parameters_str=parameters_str,
+            longitude=longitude,
+            latitude=latitude,
+        )
+
+    return api_forecast_request_url
+
+
+l_power_base_vars_to_fetch = [
+    "T2M",
+    "T2MDEW",
+    "T2MWET",
+    "TS",
+    "RH2M",
+    "PRECTOT",
+    "WS2M",
+    "ALLSKY_SFC_SW_DWN",
+]
+
+l_power_additional_vars_to_fetch = [
+    "T2M_RANGE",
+    "T2M_MAX",
+    "T2M_MIN",
+]
+
+
+def choose_meteo_default_variables(
+    aggregation: Literal["hourly", "daily"], case: Literal["forecast", "historical"]
+) -> List[str]:
+    if aggregation == "hourly":
+        default_variables = [
+            "temperature_2m",
+            "relativehumidity_2m",
+            "dewpoint_2m",
+            "apparent_temperature",
+            "precipitation",
+            "rain",
+            "snowfall",
+        ]
+
+        if case == "forecast":
+            default_variables.append("showers")
+    else:
+        default_variables = [
+            "temperature_2m_max",
+            "temperature_2m_min",
+            "apparent_temperature_max",
+            "apparent_temperature_min",
+            "sunrise",
+            "precipitation_sum",
+            "rain_sum",
+        ]
+
+        if case == "forecast":
+            default_variables.extend(["showers_sum", "snowfall_sum"])
+
+    return default_variables
+
+
+def get_open_meteo_weather_data(
+    coordinates: Tuple[float, float],
+    aggregation: Literal["hourly", "daily"],
+    case: Literal["forecast", "historical"],
+    parameters: List[str] = ["default"],
+    start_date: Union[str, None] = None,
+    end_date: Union[str, None] = None,
+) -> Tuple[
+    pd.DataFrame, Dict[str, Union[str, float, Dict[str, Union[List[str], List[float]]]]]
+]:
+    """
+    This function retrieves open-meteo historical or forecasted weather data at a location point
+
+    Args:
+        coordinates: Coordinated of the desired location (eg. (latitude, longtitude))
+        aggregation: The aggregation that the data will have. Possible values are:
+            "hourly": Provides parameters by hour with average values
+            "daily": Provides parameters by day with average, min, or max values
+        case: Choose if the requested data will be historical or forecasts
+        variables: The variables to be returned:
+            "temperature_2m: Temperature at 2 Meters (°C)"
+            "temperature_2m_max: Maximum daily air temperature at 2 meters above ground (°C)"
+            "temperature_2m_min: Minimum daily air temperature at 2 meters above ground (°C)"
+            "apparent_temperature: Apparent temperature (°C)"
+            "apparent_temperature_max: Maximum daily apparent temperature (°C)"
+            "apparent_temperature_min: Minimum daily apparent temperature (°C)"
+            "relativehumidity_2m: Relative humidity at 2 meters above ground (%)"
+            "dewpoint_2m: Dew point temperature at 2 meters above ground (°C)"
+            "sunrise: Time of sunrise"
+            "precipitation: Total precipitation (rain, showers, snow) sum of the preceding hour (mm)"
+            "precipitation_sum: Total precipitation sum (rain, showers, snow) (mm)"
+            "rain_sum: 	Rain from large scale weather systems of the preceding hour in millimeter"
+            "snowfall: Snowfall amount of the preceding hour in centimeters"
+            "showers: Showers from convective precipitation in millimeters from the preceding hour"
+            "showers_sum: Showers sum from convective precipitation in millimeters"
+            "snowfall_sum: Snowfall sum amount in centimeters"
+        start_date: Starting date to retrieve data (eg. "2021-11-27)
+        end_date: Ending date to retrieve data (eg. "2021-12-07)
+
+    Returns:
+        pd.DataFrame: weather data for the requested time period
+        Dict: The coming dictionary directly from the request
+    """
+
+    parameters_str = ",".join(parameters)
+    latitude = coordinates[0]
+    longitude = coordinates[1]
+    api_forecast_request_url = build_meteo_request_url(
+        aggregation=aggregation,
+        parameters_str=parameters_str,
+        longitude=longitude,
+        latitude=latitude,
+        case=case,
+        start_date=start_date,
+        end_date=end_date,
+    )
+
+    try:
+        response = requests.get(
+            url=api_forecast_request_url, verify=True, timeout=30.00
+        )
+    except:
+        raise ConnectionAbortedError("Failed to establish connection")
+
+    content = json.loads(response.content.decode("utf-8"))
+    weather_data_df = pd.DataFrame(content[aggregation])
+    weather_data_df["time"] = weather_data_df.apply(
+        lambda x: pd.to_datetime(x["time"], unit="s"), axis=1
+    )
+
+    return weather_data_df, content
