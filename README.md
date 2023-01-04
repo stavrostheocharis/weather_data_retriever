@@ -119,6 +119,8 @@ The main different variables that can be fetched are:
 Each aggregation level permits a specific set of variables to be used. In addition, more variables than the above are supported by this API. In order to choose your prefered ones to use, have a look at [historical weather api](https://open-meteo.com/en/docs/historical-weather-api) and at [forecast weather api](https://open-meteo.com/en/docs).
 
 Open-Meteo's source code is available on [GitHub](https://github.com/open-meteo/open-meteo).
+
+Please follow the [quick start notebook](open_meteo_quick_start.ipynb) in order to understand how to easily get started.
 #### Licence
 - Open-Meteo APIs are free for non-commercial use. The access is not restricted, but it is asked for fair use.
 - All data is provided as is without any warranty.
