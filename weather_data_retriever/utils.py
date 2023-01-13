@@ -9,7 +9,7 @@ from typing import Tuple, List, Dict, Union, Literal
 def get_location_from_name(
     name: str, use_bound_box: bool = False
 ) -> Tuple[str, Tuple[float, float]]:
-    nom_loc = Nominatim(user_agent="envio")
+    nom_loc = Nominatim(user_agent="weather_data_retriever")
     try:
         location = nom_loc.geocode(name)
         if use_bound_box:
