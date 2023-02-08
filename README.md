@@ -3,7 +3,7 @@
 # Weather data retriever
 [![Python Version](https://img.shields.io/badge/python-3.7%20%7C%203.8%20%7C%203.9-blue.svg)](#supported-python-versions) 
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![License](https://img.shields.io/badge/License-MIT-informational.svg)](https://github.com/artefactory-global/streamlit_prophet/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-informational.svg)](https://github.com/stavrostheocharis/weather_data_retriever/blob/main/LICENSE)
 
 **Retriever of multiple sources weather data**
 (NASA's larc-power project, open-meteo) 
