@@ -8,7 +8,7 @@ long_description = open("README.md", "r").read()
 setup(
     name="weather_data_retriever",
     packages=find_packages(exclude="tests"),
-    version="0.1.0",
+    version="0.2.0",
     license=license,
     description="Weather data retriever",
     long_description=long_description,
@@ -39,19 +39,3 @@ setup(
     ],
 )
 
-
-[github_badge]: https://badgen.net/badge/icon/GitHub?icon=github&color=black&label
-
-[github_link]: https://github.com/stavrostheocharis/easy_explain
-
-[pypi_badge]: https://badge.fury.io/py/easy-explain.svg
-
-[pypi_link]: https://pypi.org/project/easy-explain/
-
-[download_badge]: https://badgen.net/pypi/dm/easy-explain
-
-[download_link]: https://pypi.org/project/easy-explain/#files
-
-[licence_badge]: https://img.shields.io/github/license/stavrostheocharis/streamlit-token-craft
-
-[licence_link]: LICENSE
