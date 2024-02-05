@@ -1,59 +1,71 @@
 <div align="center">
 
-# Weather data retriever
-[![Python Version](https://img.shields.io/badge/python-3.7%20%7C%203.8%20%7C%203.9-blue.svg)](#supported-python-versions) 
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![License](https://img.shields.io/badge/License-MIT-informational.svg)](https://github.com/stavrostheocharis/weather_data_retriever/blob/main/LICENSE)
+# Weather Data Retriever
+[![Python Version](https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10%20%7C%203.11-blue.svg)](#supported-python-versions)
+[![GitHub](https://badgen.net/badge/icon/GitHub?icon=github&color=black&label)](https://github.com/stavrostheocharis/weather_data_retriever)
+[![PyPI](https://badge.fury.io/py/weather-data-retriever.svg)](https://pypi.org/project/weather-data-retriever/)
+[![Downloads](https://badgen.net/pypi/dm/weather-data-retriever)](https://pypi.org/project/weather-data-retriever/#files)
+[![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![License](https://img.shields.io/github/license/stavrostheocharis/weather-data-retriever)](LICENSE)
 
-**Retriever of multiple sources weather data**
-(NASA's larc-power project, open-meteo) 
+**A tool for retrieving weather data from multiple sources.**  
+(Currently supporting NASA's POWER Project and Open-Meteo)
 
 </div>
 
 ## Requirements
-### Python version
-* Main supported version : <strong>3.9</strong> <br>
-* Other supported versions : <strong>3.7</strong> & <strong>3.8</strong>
 
-To use the scripts on your computer, please make sure you have one of these versions installed.
+### Python Version
+- **Main supported version:** `3.11`
+- **Other supported versions:** `3.8`, `3.9`, `3.10`
 
-### Install environment & dependencies
+Ensure one of these Python versions is installed on your computer.
 
-In order to install the current repo you have 2 options:
-- Installation as a project repo
-- Pip install it directly from git inside your prefered repo and use it as a package
 
-#### Installation as a project
+### Environment & Dependencies
 
-In order to run the needed scripts you need to have python installed and run the command below.
-```
+To install this repository, you have two options:
+- Install as a project repository.
+- Install directly from Pypu using pip within your preferred environment.
+
+
+#### Project Installation
+
+Ensure Python is installed, then create a virtual environment and activate it:
+
+```bash
 python3 -m venv /path/to/new/virtual/environment
+
+source /path/to/new/virtual/environment/bin/activate
 ```
 
-To activate your `venv` run `source "env_name"/bin/activate`.
+Install dependencies with:
 
-To install dependencies run the command:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-#### Installation as a package
+#### Package Installation
 
-In order to use the current repo as a package you need to run the command below inside your project.
+To use it as a package within your project, execute:
+
 
 ```bash
-pip install git+https://github.com/stavrostheocharis/weather_data_retriever.git
+pip install weather-data-retriever
 ```
 
-## Information about the functionality
+## Functionality Overview
 
-This package is based on multiple open weather API'sand combines them in a simple form for use. The API's that are being used are listed below:
-- [Nasa's weather open API (larc-power) and 'POWER' tools and application](https://power.larc.nasa.gov/docs/). 
-- [Open-Meteo's weather API collaborating with national weather services providing open data](https://open-meteo.com/).
+This package aggregates weather data from various open APIs into a simplified form. It utilizes:
 
-### Nasa's weather open API (larc-power)
-The data that can be fetched are historical. The aggregation cases and the different community cases that can be used are analysed below:
+- [Nasa's weather open API (larc-power) and 'POWER' tools and application](https://power.larc.nasa.gov/docs/) for historical weather data across different aggregation levels and community cases. 
+- [Open-Meteo's weather API collaborating with national weather services providing open data](https://open-meteo.com/) for both historical and forecasted weather data from national weather services.
+
+### NASA's POWER API
+
+Fetch historical weather data at various aggregation levels:
+
 
 [**Aggregation**](https://power.larc.nasa.gov/docs/services/api/temporal/)
 - *Climatology*:	Provides parameters as climatologies for a pre-defined period with monthly average, maximum, and/or minimum values available.
@@ -88,11 +100,13 @@ The "T2M", "T2MDEW", "T2MWET", "TS", "RH2M", "PRECTOT", "WS2M", and "ALLSKY SFC 
 
 Statistics and availability of the data can be found at [power dashboard](https://power.larc.nasa.gov/dashboard/).
 
-Please follow the [quick start notebook](larc_power_quick_start.ipynb) in order to understand how to easily get started.
+Refer to the [POWER API Documentatio](https://power.larc.nasa.gov/docs/services/api/temporal/) for detailed information on available data types and the [quick start notebook](larc_power_quick_start.ipynb) for guidance.
 
-### Open-Meteo's weather API
 
-This part can be used for both historical and forecasted data.
+### Open-Meteo API
+
+Suitable for accessing both historical and forecasted data:
+
 
 [**Aggregation**](https://power.larc.nasa.gov/docs/services/api/temporal/)
 - *Daily*:	Provides parameters by day with average, maximum, and/or minimum values.
@@ -121,6 +135,7 @@ Each aggregation level permits a specific set of variables to be used. In additi
 Open-Meteo's source code is available on [GitHub](https://github.com/open-meteo/open-meteo).
 
 Please follow the [quick start notebook](open_meteo_quick_start.ipynb) in order to understand how to easily get started.
+
 #### Licence
 - Open-Meteo APIs are free for non-commercial use. The access is not restricted, but it is asked for fair use.
 - All data is provided as is without any warranty.
@@ -143,3 +158,20 @@ For more information, see [`CONTRIBUTING`](https://github.com/stavrostheocharis/
 ## References
 
 1. [How To Create a Python Package for Fetching Weather Data](https://medium.com/towards-artificial-intelligence/how-to-create-a-python-package-for-fetching-weather-data-b17614627f30)
+
+
+[github_badge]: https://badgen.net/badge/icon/GitHub?icon=github&color=black&label
+
+[github_link]: https://github.com/stavrostheocharis/weather_data_retriever
+
+[pypi_badge]: https://badge.fury.io/py/weather-data-retriever.svg
+
+[pypi_link]: https://pypi.org/project/weather-data-retriever/
+
+[download_badge]: https://badgen.net/pypi/dm/weather-data-retriever
+
+[download_link]: https://pypi.org/project/weather-data-retriever/#files
+
+[licence_badge]: https://img.shields.io/github/license/stavrostheocharis/weather-data-retriever
+
+[licence_link]: LICENSE
