@@ -16,12 +16,7 @@ setup(
     author="Stavros Theocharis",
     author_email="stavrostheocharis@yahoo.gr",
     url="https://github.com/stavrostheocharis/weather_data_retriever.git",
-    keywords=[
-        "weather data",
-        "historical data",
-        "meteo data",
-        "nasa data"
-    ]
+    keywords=["weather data", "historical data", "meteo data", "nasa data"],
     install_requires=[
         "pandas",
         "geopy",
