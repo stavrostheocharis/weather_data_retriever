@@ -8,7 +8,7 @@ long_description = open("README.md", "r").read()
 setup(
     name="weather_data_retriever",
     packages=find_packages(exclude="tests"),
-    version="0.2.0",
+    version="0.2.2",
     license=license,
     description="Weather data retriever",
     long_description=long_description,
