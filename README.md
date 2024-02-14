@@ -2,11 +2,12 @@
 
 # Weather Data Retriever
 [![Python Version](https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10%20%7C%203.11-blue.svg)](#supported-python-versions)
+[![total_download_badge][total_download_badge]][download_link]
 [![GitHub](https://badgen.net/badge/icon/GitHub?icon=github&color=black&label)](https://github.com/stavrostheocharis/weather_data_retriever)
 [![PyPI](https://badge.fury.io/py/weather-data-retriever.svg)](https://pypi.org/project/weather-data-retriever/)
 [![Downloads](https://badgen.net/pypi/dm/weather-data-retriever)](https://pypi.org/project/weather-data-retriever/#files)
 [![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![License](https://img.shields.io/github/license/stavrostheocharis/weather-data-retriever)](LICENSE)
+[![License](https://img.shields.io/github/license/stavrostheocharis/weather_data_retriever)](LICENSE)
 
 **A tool for retrieving weather data from multiple sources.**  
 (Currently supporting NASA's POWER Project and Open-Meteo)
@@ -170,8 +171,10 @@ For more information, see [`CONTRIBUTING`](https://github.com/stavrostheocharis/
 
 [download_badge]: https://badgen.net/pypi/dm/weather-data-retriever
 
+[total_download_badge]: https://static.pepy.tech/personalized-badge/weather_data_retriever?period=total&units=international_system&left_color=grey&right_color=blue&left_text=Total%20Downloads
+
 [download_link]: https://pypi.org/project/weather-data-retriever/#files
 
 [licence_badge]: https://img.shields.io/github/license/stavrostheocharis/weather-data-retriever
 
-[licence_link]: LICENSE
+[licence_link]: https://github.com/stavrostheocharis/weather_data_retriever/blob/main/LICENSE
